@@ -1,26 +1,10 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-
-import {
-  Excalidraw,
-  MainMenu,
-  WelcomeScreen,
-  saveAsJSON,
-  serializeAsJSON,
-  exportToSvg,
-  exportToBlob
-} from "@excalidraw/excalidraw";
-
-import type {
-  AppState,
-  ExcalidrawImperativeAPI,
-  ExcalidrawProps,
-  BinaryFiles
-} from '@excalidraw/excalidraw/types/types'
+import React, { useState, useRef } from "react";
+import { Excalidraw, MainMenu, WelcomeScreen, serializeAsJSON, exportToBlob } from "@excalidraw/excalidraw";
+import type { AppState, ExcalidrawImperativeAPI, ExcalidrawProps, BinaryFiles } from '@excalidraw/excalidraw/types/types'
 import type { ExcalidrawElement } from "@excalidraw/excalidraw/types/element/types";
 
 import { save } from "@tauri-apps/api/dialog";
 import { writeFile, writeBinaryFile, writeTextFile } from '@tauri-apps/api/fs'
-
 
 function App() {
 
