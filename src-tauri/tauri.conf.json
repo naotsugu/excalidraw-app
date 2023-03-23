@@ -27,7 +27,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.mammb.excalidraw.app",
       "targets": "all"
     },
     "security": {
@@ -42,7 +42,7 @@
         "resizable": true,
         "title": "excalidraw-app",
         "width": 800,
-        "height": 600
+        "height": 800
       }
     ]
   }

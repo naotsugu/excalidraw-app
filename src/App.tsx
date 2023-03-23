@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Excalidraw, MainMenu, WelcomeScreen, serializeAsJSON, exportToBlob } from "@excalidraw/excalidraw";
+import { Excalidraw, MainMenu, WelcomeScreen, serializeAsJSON, exportToBlob, exportToSvg } from "@excalidraw/excalidraw";
 import type { AppState, ExcalidrawImperativeAPI, ExcalidrawProps, BinaryFiles } from "@excalidraw/excalidraw/types/types"
 import type { ExcalidrawElement } from "@excalidraw/excalidraw/types/element/types";
 
@@ -25,33 +25,39 @@ function App() {
         >
           <MainMenu>
             <MainMenu.Item onSelect={async () => {
+              if (!excalidrawAPI) return;
               const path = await save({ defaultPath: "image.excalidraw" });
+              if (!path) return;
               const file = serializeAsJSON(
-                excalidrawAPI?.getSceneElements(),
+                excalidrawAPI.getSceneElements(),
                 excalidrawAPI.getAppState(),
-                excalidrawAPI?.getFiles(),
+                excalidrawAPI.getFiles(),
                 "local"
               );
               await writeTextFile(path, file);
             }}>Save...</MainMenu.Item>
             <MainMenu.Item onSelect={async () => {
+              if (!excalidrawAPI) return;
               const path = await save({ defaultPath: "image.png" });
+              if (!path) return;
               const blob = await exportToBlob({
-                elements: excalidrawAPI?.getSceneElements(),
+                elements: excalidrawAPI.getSceneElements(),
                 mimeType: "image/png",
                 appState: excalidrawAPI.getAppState(),
-                files: excalidrawAPI?.getFiles()
+                files: excalidrawAPI.getFiles()
               });
               const arrayBuffer = await blob.arrayBuffer();
               await writeBinaryFile(path, arrayBuffer);
             }}>Export to png...</MainMenu.Item>
 
             <MainMenu.Item onSelect={async () => {
+              if (!excalidrawAPI) return;
               const path = await save({ defaultPath: "image.svg" });
+              if (!path) return;
               const svg = await exportToSvg({
-                elements: excalidrawAPI?.getSceneElements(),
+                elements: excalidrawAPI.getSceneElements(),
                 appState: excalidrawAPI.getAppState(),
-                files: excalidrawAPI?.getFiles()
+                files: excalidrawAPI.getFiles()
               });
               await writeTextFile(path, svg.outerHTML);
             }}>Export to svg...</MainMenu.Item>
